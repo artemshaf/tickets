@@ -1,0 +1,8 @@
+1) Paint stage first
+2) Nested component in Stage many sections with seats
+  1)  Each section must have height and width, offsets, 
+      types for each type seat and other ones 
+  2)  You must calculate this values with helpers --> canvasLayout
+  3)  Yout should calc lastSectionPosition for each last seaction for 
+      painting next section 
+3)
