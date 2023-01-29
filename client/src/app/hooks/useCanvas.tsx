@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { StageProps } from "react-konva";
 import {
+  ICanvasPosition,
   ICanvasSeat,
   ISeatPopup,
   IUseCanvasContainerRef,
   IUseCanvasProps,
   IVirtualWidth,
-  onHoverSeat,
 } from "@interfaces";
 
 export const useCanvas = ({ data }: IUseCanvasProps) => {
@@ -62,7 +62,7 @@ export const useCanvas = ({ data }: IUseCanvasProps) => {
   }, [scale, scaleToFit]);
 
   const handleHover = useCallback(
-    (seat: string | null, position: { x: number; y: number }) => {
+    (seat: string | null, position: ICanvasPosition | null) => {
       setPopup({
         seat,
         position,
@@ -73,7 +73,6 @@ export const useCanvas = ({ data }: IUseCanvasProps) => {
 
   const handleSelect = useCallback(
     (seatId: string) => {
-      console.log("select");
       const newIds = selectedSeatsIds.concat([seatId]);
       setSelectedSeatsIds(newIds);
     },

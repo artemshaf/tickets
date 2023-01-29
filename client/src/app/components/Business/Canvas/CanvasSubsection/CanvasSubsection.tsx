@@ -5,6 +5,7 @@ import { Fragment } from "react";
 import { CanvasSeat } from "../CanvasSeat";
 import {
   getKey,
+  getSeatType,
   SEATS_DISTANCE,
   SEAT_SIZE,
   SUBSECTION_PADDING,
@@ -40,7 +41,8 @@ export const CanvasSubsection = ({
                   onHoverSeat={onHoverSeat}
                   onSelectSeat={onSelectSeat}
                   onDeselectSeat={onDeselectSeat}
-                  isSelected={selectedSeatsIds.indexOf(seat.name) >= 0}
+                  isBooked={seat.status === "booked" ? true : false}
+                  isSeatType={getSeatType(selectedSeatsIds, seat.name)}
                 />
               );
             })}

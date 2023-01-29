@@ -15,7 +15,6 @@ import { CanvasPopup } from "./CanvasPopup";
 
 export const Canvas = ({ className, ...props }: ICanvasInterface) => {
   const fetchData = useFetch<ICanvasData>("./canvas.json");
-  console.log(fetchData);
   const {
     popup,
     setPopup,

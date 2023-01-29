@@ -6,7 +6,7 @@ import { getColor, SEAT_SIZE } from "@helpers";
 export const CanvasSeat = ({
   data,
   isBooked = false,
-  isSelected,
+  isSeatType,
   onDeselectSeat,
   onHoverSeat,
   onSelectSeat,
@@ -15,7 +15,7 @@ export const CanvasSeat = ({
   className,
   ...props
 }: ICanvasSeatInterface) => {
-  const fillColor = getColor(" ");
+  const fillColor = getColor(isBooked ? "isBooked" : isSeatType);
 
   return (
     <Circle
@@ -26,7 +26,7 @@ export const CanvasSeat = ({
       strokeWidth={1}
       onMouseEnter={(e) => {
         e.target._clearCache();
-        onHoverSeat(data.name, e.target.getAbsolutePosition().x);
+        onHoverSeat(data.name, e.target.getAbsolutePosition());
         const container = e.target.getStage()?.container();
 
         if (!container) return;
@@ -38,7 +38,7 @@ export const CanvasSeat = ({
         }
       }}
       onMouseLeave={(e) => {
-        onHoverSeat(null);
+        onHoverSeat(null, null);
         const container = e.target.getStage()?.container();
 
         if (!container) return;
@@ -49,7 +49,7 @@ export const CanvasSeat = ({
         if (isBooked) {
           return;
         }
-        if (isSelected) {
+        if (isSeatType === "isSelected") {
           onDeselectSeat(data.name);
         } else {
           onSelectSeat(data.name);
@@ -59,7 +59,7 @@ export const CanvasSeat = ({
         if (isBooked) {
           return;
         }
-        if (isSelected) {
+        if (isSeatType === "isSelected") {
           onDeselectSeat(data.name);
         } else {
           onSelectSeat(data.name);

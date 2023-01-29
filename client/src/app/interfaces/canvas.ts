@@ -10,10 +10,12 @@ export interface IVirtualWidth {
 
 export interface ISeatPopup {
   seat: string | null;
-  position: {
-    x: number;
-    y: number;
-  };
+  position: ICanvasPosition | null;
+}
+
+export interface ICanvasPosition {
+  x: number;
+  y: number;
 }
 
 export interface IUseCanvasContainerRef extends HTMLDivElement {}
@@ -49,7 +51,12 @@ export interface ICanvasData {
   seats: ICanvasSeats;
 }
 
-export type onHoverSeat = (seat: string | null, position?: number) => void;
+export type onHoverSeat = (
+  seat: string | null,
+  position: ICanvasPosition | null
+) => void;
+
 export type onSelectSeat = (seatId: string) => void;
 export type onDeselectSeat = (seatId: string) => void;
 export type isBooked = boolean;
+export type SeatType = "isBooked" | "isSelected" | "default";

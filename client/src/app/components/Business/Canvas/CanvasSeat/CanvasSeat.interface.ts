@@ -5,17 +5,17 @@ import {
   onDeselectSeat,
   onHoverSeat,
   onSelectSeat,
+  SeatType,
 } from "@interfaces";
 
 export interface ICanvasSeatInterface
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   data: ICanvasSeat;
-
-  isBooked?: isBooked;
+  isSeatType: SeatType;
+  isBooked?: boolean;
   x: number;
   y: number;
   onHoverSeat: onHoverSeat;
   onSelectSeat: onSelectSeat;
   onDeselectSeat: onDeselectSeat;
-  isSelected: boolean;
 }

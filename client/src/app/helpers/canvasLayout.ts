@@ -1,4 +1,4 @@
-import { ICanvasSection, ICanvasSubsection } from "@interfaces";
+import { ICanvasSection, ICanvasSubsection, SeatType } from "@interfaces";
 
 export const SEAT_SIZE = 10;
 export const SEATS_DISTANCE = 15;
@@ -38,7 +38,18 @@ export const getMaximimSectionWidth = (sections: ICanvasSection[]) => {
   return Math.max(...sections.map(getSectionWidth));
 };
 
-export function getColor(type = "") {
+export const getSeatType = (
+  selectedSeatsIds: string[],
+  seatName: string
+): SeatType => {
+  const index = selectedSeatsIds.indexOf(seatName);
+  if (index >= 0) {
+    return "isSelected";
+  }
+  return "default";
+};
+
+export const getColor = (type: SeatType = "default") => {
   switch (type) {
     case "isSelected":
       return "red";
@@ -47,4 +58,4 @@ export function getColor(type = "") {
     default:
       return "1b728d";
   }
-}
+};
