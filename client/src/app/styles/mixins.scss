@@ -1,0 +1,30 @@
+@import "./grids.scss";
+@import "./variables.scss";
+
+@mixin mqXs {
+  @media (max-width: $xs) {
+    @content;
+  }
+}
+
+@mixin mqS {
+  @media (max-width: $s) {
+    @content;
+  }
+}
+
+@mixin mqM {
+  @media (max-width: $m) {
+    @content;
+  }
+}
+@mixin mqL {
+  @media (max-width: $l) {
+    @content;
+  }
+}
+@mixin mqXl {
+  @media (max-width: $xl) {
+    @content;
+  }
+}

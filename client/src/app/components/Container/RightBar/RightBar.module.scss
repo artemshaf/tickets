@@ -1,0 +1,18 @@
+@import "../../../styles/mixins.scss";
+
+.rightBar {
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+  color: $grey800;
+  fill: $grey800;
+  padding: 50px 40px;
+
+  @include mqL() {
+    padding: 35px 30px;
+  }
+
+  @include mqM() {
+    padding: 10px;
+  }
+}

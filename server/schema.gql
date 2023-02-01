@@ -1,0 +1,115 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AddRoleUserInput {
+  userId: Float!
+  value: String!
+}
+
+"""City"""
+type City {
+  city: String!
+  id: ID!
+}
+
+"""Country"""
+type Country {
+  country: String!
+  id: ID!
+}
+
+input CreateCityInput {
+  description: String!
+  value: String!
+}
+
+input CreateCountryInput {
+  country: String!
+}
+
+input CreateGenreInput {
+  description: String!
+  genre: String!
+}
+
+input CreateLocationInput {
+  description: String!
+  value: String!
+}
+
+input CreateRoleInput {
+  description: String!
+  value: String!
+}
+
+input CreateTicketInput {
+  eventId: Float!
+  eventPlaceId: Float!
+  userId: Float!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+}
+
+type Genre {
+  description: String!
+  genre: String!
+  id: ID!
+}
+
+"""Location"""
+type Location {
+  area: String!
+  cityId: City!
+  id: ID!
+}
+
+type Mutation {
+  addRole(addRole: AddRoleUserInput!): User!
+  create(createUser: CreateUserInput!): User!
+  createCity(createCity: CreateCityInput!): City!
+  createCountry(createCountry: CreateCountryInput!): Country!
+  createGenre(createGenre: CreateGenreInput!): Genre!
+  createLocation(createLocation: CreateLocationInput!): Location!
+  createRole(createRole: CreateRoleInput!): Role!
+  createTicket(createTicket: CreateTicketInput!): Ticket!
+  deleteGenreByValue(value: String!): Genre!
+  deleteTicket(id: Float!): Ticket!
+  login(login: CreateUserInput!): User!
+  registration(registration: CreateUserInput!): User!
+}
+
+type Query {
+  getAllRoles: [Role!]!
+  getAllTickets: Ticket!
+  getAllUsers: [User!]!
+  getCityByValue(value: String!): City!
+  getCountryByValue(value: String!): Country!
+  getGenreByValue(value: String!): Genre!
+  getLocationByValue(value: String!): Location!
+  getRoleByValye(value: String!): Role!
+  getTicketById(id: Float!): Ticket!
+  getUserByEmail(email: String!): User!
+}
+
+type Role {
+  description: String!
+  id: ID!
+  value: String!
+}
+
+type Ticket {
+  eventId: Float!
+  eventPlaceId: Float!
+  id: ID!
+  userId: Float!
+}
+
+type User {
+  email: String!
+  id: ID!
+  password: String!
+}

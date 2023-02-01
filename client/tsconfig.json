@@ -16,6 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "paths": {
       "@components": ["./app/components/index.tsx"],
       "@pages": ["./app/pages/index.tsx"],

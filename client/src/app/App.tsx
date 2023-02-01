@@ -1,12 +1,8 @@
-import { useState } from "react";
-import { Canvas } from "@components";
+import { AppRouter } from "@components";
+import { withLayout } from "./components/Container/Layout";
 
 function App() {
-  return (
-    <div className="App">
-      <Canvas />
-    </div>
-  );
+  return <AppRouter />;
 }
 
-export default App;
+export default withLayout(App);
