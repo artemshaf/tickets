@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { EventPlace } from '../event-section/models/event-place.model';
+import { EventHolding } from '../event-section/models/event-section.model';
 import { EventModule } from '../event/event.module';
 import { Event } from '../event/models/event.model';
 import { User } from '../user/models/user.model';
@@ -11,7 +11,7 @@ import { TicketService } from './ticket.service';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([Ticket, EventPlace, Event, User]),
+    SequelizeModule.forFeature([Ticket, EventHolding, Event, User]),
     EventModule,
     UserModule,
   ],

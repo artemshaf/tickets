@@ -1,12 +1,6 @@
 import { Role } from '../../role/models/role.model';
 import { UserRole } from '../../role/models/user-role.model';
-import {
-  Model,
-  Column,
-  Table,
-  DataType,
-  BelongsToMany,
-} from 'sequelize-typescript';
+import { Model, Column, Table, DataType, HasMany } from 'sequelize-typescript';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 interface IUserCreationAttributes {
@@ -14,7 +8,7 @@ interface IUserCreationAttributes {
   password: string;
 }
 
-@Table
+@Table({})
 @ObjectType()
 export class User extends Model<User, IUserCreationAttributes> {
   @Field(() => ID)
@@ -34,6 +28,10 @@ export class User extends Model<User, IUserCreationAttributes> {
   @Column({ type: DataType.STRING, allowNull: false })
   password: string;
 
-  @BelongsToMany(() => Role, () => UserRole)
+  @HasMany(() => UserRole, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    hooks: true,
+  })
   roles: Role[];
 }

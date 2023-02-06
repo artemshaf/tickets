@@ -2,22 +2,13 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { EventSectionResolver } from './event-section.resolver';
 import { EventSectionService } from './event-section.service';
-import { EventPlace } from './models/event-place.model';
 import {
-  EventSection,
-  EventSubSection,
-  EventPlacesHolding,
+  EventHolding,
+  EventHoldingPlacement,
 } from './models/event-section.model';
 
 @Module({
-  imports: [
-    SequelizeModule.forFeature([
-      EventPlacesHolding,
-      EventSection,
-      EventSubSection,
-      EventPlace,
-    ]),
-  ],
+  imports: [SequelizeModule.forFeature([EventHolding, EventHoldingPlacement])],
   providers: [EventSectionResolver, EventSectionService],
 })
 export class EventSectionModule {}

@@ -7,9 +7,8 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { EventPlacesHolding } from '../../event-section/models/event-section.model';
+import { EventHolding } from '../../event-section/models/event-section.model';
 import { Genre } from '../../genre/models/genre.model';
-import { Location } from '../../location/models/location.model';
 
 @Table({ createdAt: false, updatedAt: false })
 @ObjectType()
@@ -34,22 +33,11 @@ export class Event extends Model<Event> {
   @BelongsTo(() => Genre)
   genre: Genre;
 
-  @BelongsTo(() => Location)
-  location: Location;
+  @BelongsTo(() => EventHolding)
+  place: EventHolding;
 
   @Field(() => Number)
-  @ForeignKey(() => Location)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  locationId: number;
-
-  @BelongsTo(() => EventPlacesHolding)
-  place: EventPlacesHolding;
-
-  @Field(() => Number)
-  @ForeignKey(() => EventPlacesHolding)
+  @ForeignKey(() => EventHolding)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,

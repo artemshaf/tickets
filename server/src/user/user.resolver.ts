@@ -3,6 +3,8 @@ import { AddRoleUserInput } from './inputs/add-role-user.input';
 import { CreateUserInput } from './inputs/create-user.input';
 import { User } from './models/user.model';
 import { UserService } from './user.service';
+import { UseGuards } from '@nestjs/common';
+import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 
 @Resolver('User')
 export class UserResolver {
@@ -13,9 +15,15 @@ export class UserResolver {
     return await this.userService.create(createUserInput);
   }
 
+  @UseGuards(AccessTokenGuard)
   @Query(() => [User])
   async getAllUsers() {
     return await this.userService.getAllUsers();
+  }
+
+  @Mutation(() => [User])
+  async deleteAllUsers() {
+    return await this.userService.deleteAllUsers();
   }
 
   @Query(() => User)

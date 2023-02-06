@@ -9,7 +9,6 @@ import {
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Event } from '../../event/models/event.model';
 import { User } from '../../user/models/user.model';
-import { EventPlace } from '../../event-section/models/event-place.model';
 
 interface ITicketCreationAttributes {
   email: string;
@@ -44,11 +43,11 @@ export class Ticket extends Model<Ticket, ITicketCreationAttributes> {
   @BelongsTo(() => User)
   user: User;
 
-  @BelongsTo(() => EventPlace)
-  eventPlace: EventPlace;
+  // @BelongsTo(() => EventPlace)
+  // eventPlace: EventPlace;
 
-  @Field(() => Number)
-  @ForeignKey(() => EventPlace)
-  @Column({ type: DataType.INTEGER, allowNull: false })
-  eventPlaceId: EventPlace;
+  // @Field(() => Number)
+  // @ForeignKey(() => EventPlace)
+  // @Column({ type: DataType.INTEGER, allowNull: false })
+  // eventPlaceId: EventPlace;
 }

@@ -33,6 +33,14 @@ export class UserService {
     return users;
   }
 
+  async deleteAllUsers() {
+    return this.userRepository.destroy({
+      where: {},
+      truncate: true,
+      cascade: true,
+    });
+  }
+
   async getUserByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({
       where: { email },
@@ -40,6 +48,11 @@ export class UserService {
         all: true,
       },
     });
+    return user;
+  }
+
+  async getUserById(userId: number): Promise<User> {
+    const user = await this.userRepository.findByPk(userId);
     return user;
   }
 

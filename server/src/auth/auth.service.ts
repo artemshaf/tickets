@@ -4,10 +4,9 @@ import {
   HttpException,
   UnauthorizedException,
 } from '@nestjs/common/exceptions';
-import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
+import { TokenService } from '../token/token.service';
 import { CreateUserInput } from '../user/inputs/create-user.input';
-import { User } from '../user/models/user.model';
 
 import { UserService } from './../user/user.service';
 import { USER_EXISTS, USER_NOT_EXISTS } from './auth.constants';
@@ -16,34 +15,37 @@ import { USER_EXISTS, USER_NOT_EXISTS } from './auth.constants';
 export class AuthService {
   constructor(
     private userService: UserService,
-    private jwtService: JwtService,
+    private tokenService: TokenService,
   ) {}
 
   async login(userInput: CreateUserInput) {
     const user = await this.validateUser(userInput);
-    return user;
+    const tokens = await this.tokenService.generateToken(user.id, user.email);
+    await this.tokenService.updateRefreshToken(user.id, tokens.refreshToken);
+    return {
+      user,
+      ...tokens,
+    };
   }
 
   async registration(userInput: CreateUserInput) {
     const user = await this.userService.getUserByEmail(userInput.email);
-    console.log(user);
+
     if (user) {
       throw new HttpException(USER_EXISTS, HttpStatus.BAD_REQUEST);
     }
-    const hashPassword = await hash(userInput.password, 6);
+
+    const hashedPassword = await hash(userInput.password, 6);
     const hashedUser = await this.userService.create({
       ...userInput,
-      password: hashPassword,
+      password: hashedPassword,
     });
-    return this.generateToken(hashedUser);
+
+    return this.tokenService.generateToken(hashedUser.id, hashedUser.email);
   }
 
-  private async generateToken(user: User) {
-    const payload = { email: user.email, id: user.id };
-    const token = this.jwtService.sign(payload);
-    return {
-      token,
-    };
+  async logout(userId: number) {
+    return this.tokenService.updateRefreshToken(userId, null);
   }
 
   private async validateUser(userDto: CreateUserInput) {

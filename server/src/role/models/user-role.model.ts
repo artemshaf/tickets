@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -21,6 +22,13 @@ export class UserRole extends Model<UserRole> {
   })
   id: number;
 
+  @BelongsTo(() => User, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  user: User;
+
   @Field(() => Number)
   @ForeignKey(() => User)
   @Column({ type: DataType.INTEGER, allowNull: false })
@@ -30,4 +38,11 @@ export class UserRole extends Model<UserRole> {
   @ForeignKey(() => Role)
   @Column({ type: DataType.INTEGER, allowNull: false })
   roleId: number;
+
+  @BelongsTo(() => Role, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  role: Role;
 }

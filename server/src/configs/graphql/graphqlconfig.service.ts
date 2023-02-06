@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlOptionsFactory } from '@nestjs/graphql';
-
+import GraphQLJSON from 'graphql-type-json';
 @Injectable()
 export class GraphQLConfigService
   implements GqlOptionsFactory<ApolloDriverConfig>
@@ -16,5 +16,6 @@ export class GraphQLConfigService
     sortSchema: true,
     playground: true,
     cors: true,
+    resolvers: { JSON: GraphQLJSON },
   });
 }

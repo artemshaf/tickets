@@ -28,6 +28,17 @@ input CreateCountryInput {
   country: String!
 }
 
+input CreateEventHoldingInput {
+  locationId: Float!
+  name: String!
+}
+
+input CreateEventHoldingPlacementInput {
+  eventHoldingId: Float!
+  name: String!
+  places: JSON!
+}
+
 input CreateGenreInput {
   description: String!
   genre: String!
@@ -54,11 +65,40 @@ input CreateUserInput {
   password: String!
 }
 
+type EventHolding {
+  id: ID!
+  locationId: Float!
+  name: String!
+}
+
+type EventHoldingPlacement {
+  eventHoldingId: Float!
+  id: ID!
+  name: String!
+  places: JSON!
+}
+
 type Genre {
   description: String!
   genre: String!
   id: ID!
 }
+
+type GetGenerateTokensDto {
+  accessToken: String!
+  refreshToken: String!
+}
+
+type GetRefreshTokenDto {
+  id: Float!
+  refreshToken: String
+  userId: Float!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 """Location"""
 type Location {
@@ -67,32 +107,56 @@ type Location {
   id: ID!
 }
 
+type LoginResponseDto {
+  accessToken: String!
+  refreshToken: String!
+  user: User!
+}
+
 type Mutation {
   addRole(addRole: AddRoleUserInput!): User!
   create(createUser: CreateUserInput!): User!
   createCity(createCity: CreateCityInput!): City!
   createCountry(createCountry: CreateCountryInput!): Country!
+  createEventHolding(createEventHolding: CreateEventHoldingInput!): EventHolding!
+  createEventHoldingPlacement(eventHoldingPlacement: CreateEventHoldingPlacementInput!): EventHoldingPlacement!
   createGenre(createGenre: CreateGenreInput!): Genre!
   createLocation(createLocation: CreateLocationInput!): Location!
   createRole(createRole: CreateRoleInput!): Role!
   createTicket(createTicket: CreateTicketInput!): Ticket!
+  deleteAllUsers: [User!]!
   deleteGenreByValue(value: String!): Genre!
   deleteTicket(id: Float!): Ticket!
-  login(login: CreateUserInput!): User!
-  registration(registration: CreateUserInput!): User!
+  login(login: CreateUserInput!): LoginResponseDto!
+  logout(userId: Int!): RefreshToken!
+  registration(registration: CreateUserInput!): RegistrationResponseDto!
 }
 
 type Query {
+  generateTokens: GetGenerateTokensDto!
   getAllRoles: [Role!]!
   getAllTickets: Ticket!
+  getAllTokens: [GetRefreshTokenDto!]!
   getAllUsers: [User!]!
   getCityByValue(value: String!): City!
   getCountryByValue(value: String!): Country!
   getGenreByValue(value: String!): Genre!
   getLocationByValue(value: String!): Location!
+  getRefreshTokenByUserId(id: Int!): GetRefreshTokenDto!
   getRoleByValye(value: String!): Role!
   getTicketById(id: Float!): Ticket!
   getUserByEmail(email: String!): User!
+}
+
+type RefreshToken {
+  id: ID!
+  refreshToken: String!
+  userId: Float!
+}
+
+type RegistrationResponseDto {
+  accessToken: String!
+  refreshToken: String!
 }
 
 type Role {
@@ -103,7 +167,6 @@ type Role {
 
 type Ticket {
   eventId: Float!
-  eventPlaceId: Float!
   id: ID!
   userId: Float!
 }

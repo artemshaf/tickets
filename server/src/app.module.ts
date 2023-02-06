@@ -16,6 +16,10 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { TicketModule } from './ticket/ticket.module';
 import { EventSectionModule } from './event-section/event-section.module';
 import { EventTariffModule } from './event-tariff/event-tariff.module';
+import { TokenModule } from './token/token.module';
+import { AccessTokenGuard } from './auth/guards/access-token.guard';
+import { APP_GUARD } from '@nestjs/core';
+import { RefreshTokenStrategy } from './auth/stratagies/refresh-token.stratagy';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -42,8 +46,14 @@ import { EventTariffModule } from './event-tariff/event-tariff.module';
     TicketModule,
     EventSectionModule,
     EventTariffModule,
+    TokenModule,
   ],
   controllers: [],
-  providers: [SequelizeConfigService],
+  providers: [
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: AccessTokenGuard,
+    // },
+  ],
 })
 export class AppModule {}
