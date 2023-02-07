@@ -16,6 +16,11 @@ export class GraphQLConfigService
     sortSchema: true,
     playground: true,
     cors: true,
+    installSubscriptionHandlers: true,
     resolvers: { JSON: GraphQLJSON },
+    subscriptions: {
+      'graphql-ws': true,
+      'subscriptions-transport-ws': true,
+    },
   });
 }

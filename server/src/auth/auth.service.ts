@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common/enums';
 import {
+  ForbiddenException,
   HttpException,
   UnauthorizedException,
 } from '@nestjs/common/exceptions';
@@ -21,7 +22,9 @@ export class AuthService {
   async login(userInput: CreateUserInput) {
     const user = await this.validateUser(userInput);
     const tokens = await this.tokenService.generateToken(user.id, user.email);
+
     await this.tokenService.updateRefreshToken(user.id, tokens.refreshToken);
+
     return {
       user,
       ...tokens,
@@ -41,7 +44,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    return this.tokenService.generateToken(hashedUser.id, hashedUser.email);
+    return hashedUser;
   }
 
   async logout(userId: number) {
@@ -62,5 +65,38 @@ export class AuthService {
       });
     }
     return user;
+  }
+
+  async refreshTokens(userId: number, refreshToken: string) {
+    const user = await this.userService.getUserById(userId);
+
+    if (!user) {
+      throw new UnauthorizedException({
+        message: USER_NOT_EXISTS,
+      });
+    }
+
+    const userToken = await this.tokenService.getRefreshTokenByUserId(userId);
+
+    if (!userToken) {
+      throw new UnauthorizedException({
+        message: 'Access Denied',
+      });
+    }
+
+    const refreshTokenMatch = await compare(
+      refreshToken,
+      userToken.refreshToken,
+    );
+
+    if (!refreshTokenMatch) {
+      throw new ForbiddenException('Access Denied');
+    }
+
+    const tokens = await this.tokenService.generateToken(user.id, user.email);
+
+    await this.tokenService.updateRefreshToken(user.id, tokens.refreshToken);
+
+    return tokens;
   }
 }

@@ -1,13 +1,13 @@
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateCityInput {
   @Field()
   @IsString()
-  value: string;
+  city: string;
 
   @Field()
-  @IsString()
-  description: string;
+  @IsNumber()
+  countryId: number;
 }

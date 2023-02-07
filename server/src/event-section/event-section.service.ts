@@ -13,7 +13,7 @@ export class EventSectionService {
     @InjectModel(EventHolding)
     private readonly eventHoldingRepo: typeof EventHolding,
     @InjectModel(EventHoldingPlacement)
-    private readonly eventHoldingPlacementPRepo: typeof EventHoldingPlacement,
+    private readonly eventHoldingPlacementRepo: typeof EventHoldingPlacement,
   ) {}
 
   createEventHolding(eventPlacesHoldingInput: CreateEventHoldingInput) {
@@ -23,16 +23,26 @@ export class EventSectionService {
   createEventHoldingPlacement(
     eventHoldingPlacement: CreateEventHoldingPlacementInput,
   ) {
-    return this.eventHoldingPlacementPRepo.create(eventHoldingPlacement);
+    return this.eventHoldingPlacementRepo.create(eventHoldingPlacement);
   }
 
-  // getEventPlacesHoldingByValue(value: string) {
-  //   return this.eventPlacesHoldingRepo.findOne({ where: { value } });
-  // }
+  getEventPlacesHoldingByValue(value: string) {
+    return this.eventHoldingRepo.findOne({ where: { value } });
+  }
 
-  // getEventSectionsByPlacesHoldingId(id: number) {
-  //   return this.eventSectionRepo.findAll({
-  //     where: { eventPlacesHoldingId: id },
-  //   });
-  // }
+  async getAllEventHoldings() {
+    const events = await this.eventHoldingRepo.findAll();
+    return events;
+  }
+
+  async getAllEventHoldingsPlacement() {
+    const placements = await this.eventHoldingPlacementRepo.findAll();
+    return placements;
+  }
+
+  getEventSectionsByPlacesHoldingId(id: number) {
+    return this.eventHoldingPlacementRepo.findOne({
+      where: { eventHoldingId: id },
+    });
+  }
 }

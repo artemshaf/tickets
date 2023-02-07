@@ -10,6 +10,7 @@ input AddRoleUserInput {
 """City"""
 type City {
   city: String!
+  countryId: Float!
   id: ID!
 }
 
@@ -20,8 +21,8 @@ type Country {
 }
 
 input CreateCityInput {
-  description: String!
-  value: String!
+  city: String!
+  countryId: Float!
 }
 
 input CreateCountryInput {
@@ -29,7 +30,7 @@ input CreateCountryInput {
 }
 
 input CreateEventHoldingInput {
-  locationId: Float!
+  address: String!
   name: String!
 }
 
@@ -39,14 +40,16 @@ input CreateEventHoldingPlacementInput {
   places: JSON!
 }
 
+input CreateEventInput {
+  date: DateTime!
+  genreId: Float!
+  locationId: Float!
+  placeId: Float!
+}
+
 input CreateGenreInput {
   description: String!
   genre: String!
-}
-
-input CreateLocationInput {
-  description: String!
-  value: String!
 }
 
 input CreateRoleInput {
@@ -65,9 +68,21 @@ input CreateUserInput {
   password: String!
 }
 
-type EventHolding {
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Event {
+  date: DateTime!
+  genreId: Float!
   id: ID!
-  locationId: Float!
+  placeId: Float!
+}
+
+type EventHolding {
+  address: String!
+  id: ID!
   name: String!
 }
 
@@ -100,13 +115,6 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
-"""Location"""
-type Location {
-  area: String!
-  cityId: City!
-  id: ID!
-}
-
 type LoginResponseDto {
   accessToken: String!
   refreshToken: String!
@@ -118,10 +126,10 @@ type Mutation {
   create(createUser: CreateUserInput!): User!
   createCity(createCity: CreateCityInput!): City!
   createCountry(createCountry: CreateCountryInput!): Country!
+  createEvent(createEvent: CreateEventInput!): Event!
   createEventHolding(createEventHolding: CreateEventHoldingInput!): EventHolding!
   createEventHoldingPlacement(eventHoldingPlacement: CreateEventHoldingPlacementInput!): EventHoldingPlacement!
   createGenre(createGenre: CreateGenreInput!): Genre!
-  createLocation(createLocation: CreateLocationInput!): Location!
   createRole(createRole: CreateRoleInput!): Role!
   createTicket(createTicket: CreateTicketInput!): Ticket!
   deleteAllUsers: [User!]!
@@ -129,19 +137,24 @@ type Mutation {
   deleteTicket(id: Float!): Ticket!
   login(login: CreateUserInput!): LoginResponseDto!
   logout(userId: Int!): RefreshToken!
-  registration(registration: CreateUserInput!): RegistrationResponseDto!
+  refreshTokens: GetGenerateTokensDto!
+  registration(registration: CreateUserInput!): User!
 }
 
 type Query {
-  generateTokens: GetGenerateTokensDto!
+  getAllEventHoldings: [EventHolding!]!
+  getAllEventHoldingsPlacement: [EventHoldingPlacement!]!
+  getAllEvents: [Event!]!
   getAllRoles: [Role!]!
   getAllTickets: Ticket!
   getAllTokens: [GetRefreshTokenDto!]!
   getAllUsers: [User!]!
   getCityByValue(value: String!): City!
   getCountryByValue(value: String!): Country!
+  getEvent(id: Float!): Event!
+  getEventHoldingByName(value: String!): EventHolding!
+  getEventHoldingPlacement(getEventHoldingPlacement: Float!): EventHoldingPlacement!
   getGenreByValue(value: String!): Genre!
-  getLocationByValue(value: String!): Location!
   getRefreshTokenByUserId(id: Int!): GetRefreshTokenDto!
   getRoleByValye(value: String!): Role!
   getTicketById(id: Float!): Ticket!
@@ -154,15 +167,14 @@ type RefreshToken {
   userId: Float!
 }
 
-type RegistrationResponseDto {
-  accessToken: String!
-  refreshToken: String!
-}
-
 type Role {
   description: String!
   id: ID!
   value: String!
+}
+
+type Subscription {
+  notificationCreateGenre(genre: String!): Genre!
 }
 
 type Ticket {

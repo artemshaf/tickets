@@ -9,7 +9,16 @@ import {
 } from 'sequelize-typescript';
 import { Country } from './county.model';
 
-@Table({ createdAt: false, updatedAt: false })
+@Table({
+  createdAt: false,
+  updatedAt: false,
+  indexes: [
+    {
+      fields: ['city', 'countryId'],
+      unique: true,
+    },
+  ],
+})
 @ObjectType({ description: 'City' })
 export class City extends Model<City> {
   @Field(() => ID)
@@ -29,12 +38,13 @@ export class City extends Model<City> {
   })
   city: string;
 
+  @Field(() => Number)
   @ForeignKey(() => Country)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  countryId: Country;
+  countryId: number;
 
   @BelongsTo(() => Country)
   country: Country;

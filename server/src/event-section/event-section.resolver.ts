@@ -29,15 +29,27 @@ export class EventSectionResolver {
     );
   }
 
-  // @Query(() => EventHolding)
-  // async getEventHoldingByName(@Args('value') value: string) {
-  //   return this.eventSectionService.getEventPlacesHoldingByValue(value);
-  // }
+  @Query(() => [EventHolding])
+  async getAllEventHoldings() {
+    return this.eventSectionService.getAllEventHoldings();
+  }
 
-  // @Query(() => EventHoldingPlacement)
-  // async getEventHoldingPlacement(
-  //   @Args('getEventHoldingPlacement') eventHoldingPlacement: number,
-  // ) {
-  //   return this.eventSectionService.getEventSectionsByPlacesHoldingId(id);
-  // }
+  @Query(() => [EventHoldingPlacement])
+  async getAllEventHoldingsPlacement() {
+    return this.eventSectionService.getAllEventHoldingsPlacement();
+  }
+
+  @Query(() => EventHolding)
+  async getEventHoldingByName(@Args('value') value: string) {
+    return this.eventSectionService.getEventPlacesHoldingByValue(value);
+  }
+
+  @Query(() => EventHoldingPlacement)
+  async getEventHoldingPlacement(
+    @Args('getEventHoldingPlacement') eventHoldingPlacement: number,
+  ) {
+    return this.eventSectionService.getEventSectionsByPlacesHoldingId(
+      eventHoldingPlacement,
+    );
+  }
 }

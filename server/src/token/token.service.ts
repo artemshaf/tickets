@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/sequelize';
+import { hash } from 'bcrypt';
 import { RefreshToken } from './models/token.model';
 import { IGenerateTokens } from './types';
 
@@ -23,6 +24,7 @@ export class TokenService {
 
   async updateRefreshToken(userId: number, refreshToken: string | null) {
     const token = await this.getRefreshTokenByUserId(userId);
+
     if (!token) {
       return this.refreshTokenRepo.create({
         userId,
@@ -30,8 +32,10 @@ export class TokenService {
       });
     }
 
-    return this.refreshTokenRepo.update(
-      { userId, refreshToken },
+    const hashedToken = await hash(refreshToken, 6);
+
+    return await this.refreshTokenRepo.update(
+      { userId, refreshToken: hashedToken },
       {
         where: {
           userId,
@@ -49,7 +53,7 @@ export class TokenService {
         },
         {
           secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-          expiresIn: '3d',
+          expiresIn: '30m',
         },
       ),
       this.jwtService.signAsync(
@@ -59,7 +63,7 @@ export class TokenService {
         },
         {
           secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-          expiresIn: '60d',
+          expiresIn: '7d',
         },
       ),
     ]);
@@ -68,13 +72,5 @@ export class TokenService {
       accessToken,
       refreshToken,
     };
-  }
-
-  async refreshTokens(id: number, email: string): Promise<IGenerateTokens> {
-    const tokens = await this.generateToken(id, email);
-
-    await this.updateRefreshToken(id, tokens.refreshToken);
-
-    return tokens;
   }
 }

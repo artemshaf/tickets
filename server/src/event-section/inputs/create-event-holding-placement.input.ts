@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsJSON, IsObject, IsString } from 'class-validator';
+import { IsJSON, IsNumber, IsString } from 'class-validator';
 import GraphQLJSON from 'graphql-type-json';
 
 @InputType()
@@ -9,10 +9,10 @@ export class CreateEventHoldingPlacementInput {
   name: string;
 
   @Field(() => Number)
-  @IsString()
+  @IsNumber()
   eventHoldingId: number;
 
   @Field(() => GraphQLJSON)
-  @IsObject()
+  @IsJSON()
   places: JSON;
 }

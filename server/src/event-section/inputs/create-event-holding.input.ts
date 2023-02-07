@@ -8,7 +8,7 @@ export class CreateEventHoldingInput {
   @IsString()
   name: string;
 
-  @Field(() => Number)
-  @IsNumber()
-  locationId: number;
+  @Field(() => String)
+  @IsString()
+  address: string;
 }
