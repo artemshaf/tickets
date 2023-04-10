@@ -8,6 +8,8 @@
   fill: $grey800;
   padding: 50px 40px;
 
+  border-left: 2px solid $grey400;
+
   @include mqL() {
     padding: 35px 30px;
   }

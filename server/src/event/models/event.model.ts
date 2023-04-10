@@ -51,4 +51,11 @@ export class Event extends Model<Event> {
     defaultValue: new Date(new Date().setDate(new Date().getDate() + 7 * 3)),
   })
   date: Date;
+
+  @Field(() => String)
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  image: string;
 }

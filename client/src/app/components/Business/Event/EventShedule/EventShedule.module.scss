@@ -1,0 +1,131 @@
+@import "../../../../styles/variables.scss";
+
+.eventShedule {
+  color: $grey900;
+}
+
+.city__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  margin: 30px 0;
+
+  &__item {
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &__active {
+      border: 1.5px solid red;
+    }
+  }
+}
+
+.place {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    margin: 20px 0;
+
+    &__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      border-bottom: 1.5px $grey400 solid;
+
+      &:first-child {
+        border-top: 1.5px $grey400 solid;
+      }
+      &__name {
+        margin-top: 23px;
+        font-weight: bold;
+      }
+
+      &__places {
+        display: flex;
+        flex-wrap: wrap;
+
+        gap: 5px;
+
+        &__item {
+          margin: 5px 10px;
+          min-width: 80px;
+          transition: $transition-m;
+
+          &__btn {
+            position: relative;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            & svg {
+              width: 80px;
+              height: 80px;
+
+              & path {
+                width: 100%;
+              }
+            }
+
+            &:hover {
+              & svg {
+                fill: red;
+                stroke-width: 0.8px;
+              }
+              & p,
+              & span {
+                color: $grey100;
+              }
+            }
+          }
+          &__text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: $grey900;
+            font-weight: bold;
+          }
+
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+}
+
+.schedule__list {
+  display: flex;
+  max-width: 400px;
+
+  &__item {
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: $grey300;
+    color: $grey100;
+    transition: $transition-m;
+    border: 1px solid transparent;
+
+    cursor: pointer;
+
+    &:hover {
+      border-color: red;
+    }
+
+    &_active {
+      border-color: red;
+    }
+  }
+}

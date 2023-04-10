@@ -1,2 +1,23 @@
+@import "../../../styles/variables.scss";
+
 .icon {
+  transition: $transition-m;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &_s {
+    width: 24px;
+    height: 24px;
+  }
+  &_m {
+    width: 40px;
+    height: 40px;
+  }
+  &_l {
+    width: 60px;
+    height: 60px;
+  }
 }

@@ -1,16 +1,28 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 import { EventService } from './event.service';
-import { CreateEventInput } from './inputs/create-event.input';
 import { Event } from './models/event.model';
 
 @Resolver('Event')
 export class EventResolver {
   constructor(private readonly eventService: EventService) {}
 
-  @Mutation(() => Event)
-  createEvent(@Args('createEvent') createEventInput: CreateEventInput) {
-    return this.eventService.createEvent(createEventInput);
-  }
+  // // @UseInterceptors(FileInterceptor('image'))
+  // @Mutation(() => Event)
+  // createEvent(
+  //   @Args('createEvent') createEventInput: CreateEventInput,
+  //   // @UploadedFile(
+  //   //   new ParseFilePipe({
+  //   //     validators: [
+  //   //       new FileTypeValidator({ fileType: '.(png|jpeg|jpg)' }),
+  //   //       new MaxFileSizeValidator({ maxSize: 1024 ** 2 * 2 }),
+  //   //     ],
+  //   //   }),
+  //   // )
+  //   // image: Express.Multer.File,
+  // ) {
+  //   // console.log(image);
+  //   return this.eventService.createEvent(createEventInput);
+  // }
 
   @Query(() => Event)
   getEvent(@Args('id') id: number) {

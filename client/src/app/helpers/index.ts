@@ -1,6 +1,7 @@
 import { MouseEvent } from "react";
 
 export * from "./canvasLayout";
+export * from "./date";
 
 export const getKey = (count = 3): string => {
   let result = "";

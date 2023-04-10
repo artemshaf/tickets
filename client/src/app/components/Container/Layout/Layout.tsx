@@ -8,11 +8,9 @@ import styles from "./Layout.module.scss";
 export const Layout = ({ children, ...props }: ILayoutInterface) => {
   return (
     <div className={styles.wrapper}>
-      <LeftBar className={styles.leftbar} />
-      <main className={styles.main} {...props}>
-        {children}
-      </main>
-      <RightBar className={styles.rightbar} />
+      <LeftBar />
+      <main {...props}>{children}</main>
+      <RightBar />
     </div>
   );
 };

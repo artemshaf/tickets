@@ -10,20 +10,24 @@ import { getKey } from "@helpers";
 export const LeftBar = ({ className, ...props }: ILeftBarInterface) => {
   return (
     <aside className={styles.leftBar} {...props}>
-      <Logo />
+      <Logo className={styles.logo} />
       <nav>
-        <ul>
+        <ul className={styles.list}>
           {leftSideBarData.map((item) => (
-            <li key={getKey()}>
+            <li key={getKey()} className={styles.list__item}>
               <Link to={item.link}>
-                {item.icon ? <Icon icon={item.icon} /> : <></>}
-                {item.text ? <Typography>{item.text}</Typography> : <></>}
+                {item.icon ? <Icon size="s" icon={item.icon} /> : <></>}
+                {item.text ? (
+                  <Typography variant="span">{item.text}</Typography>
+                ) : (
+                  <></>
+                )}
               </Link>
             </li>
           ))}
         </ul>
       </nav>
-      <UserBlock />
+      <UserBlock className={styles.user__block} />
     </aside>
   );
 };

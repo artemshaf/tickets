@@ -40,13 +40,6 @@ input CreateEventHoldingPlacementInput {
   places: JSON!
 }
 
-input CreateEventInput {
-  date: DateTime!
-  genreId: Float!
-  locationId: Float!
-  placeId: Float!
-}
-
 input CreateGenreInput {
   description: String!
   genre: String!
@@ -77,6 +70,7 @@ type Event {
   date: DateTime!
   genreId: Float!
   id: ID!
+  image: String!
   placeId: Float!
 }
 
@@ -126,7 +120,6 @@ type Mutation {
   create(createUser: CreateUserInput!): User!
   createCity(createCity: CreateCityInput!): City!
   createCountry(createCountry: CreateCountryInput!): Country!
-  createEvent(createEvent: CreateEventInput!): Event!
   createEventHolding(createEventHolding: CreateEventHoldingInput!): EventHolding!
   createEventHoldingPlacement(eventHoldingPlacement: CreateEventHoldingPlacementInput!): EventHoldingPlacement!
   createGenre(createGenre: CreateGenreInput!): Genre!

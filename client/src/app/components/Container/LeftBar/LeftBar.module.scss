@@ -6,7 +6,9 @@
   background-color: $white;
   color: $grey800;
   fill: $grey800;
-  padding: 50px 40px;
+  padding: 30px 20px;
+
+  border-right: 2px solid $grey400;
 
   @include mqL() {
     padding: 35px 30px;
@@ -15,4 +17,28 @@
   @include mqM() {
     padding: 10px;
   }
+
+  max-height: 100vh;
+}
+
+.logo {
+  margin-bottom: 100px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+
+  &__item {
+    & > a {
+      display: flex;
+      column-gap: 14px;
+      align-items: center;
+    }
+  }
+}
+
+.user__block {
+  margin-top: auto;
 }

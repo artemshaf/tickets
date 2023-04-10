@@ -1,0 +1,106 @@
+@import "../../../styles/mixins.scss";
+
+.event {
+  padding: 20px 12px;
+  display: grid;
+
+  grid-template-columns: 450px auto;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.swiper {
+  &__wrapper {
+    position: relative;
+    max-width: 450px;
+    & img {
+      border-radius: $brd-r-l;
+    }
+  }
+}
+
+.slider {
+  &__lg {
+    & img {
+      min-height: 600px;
+      border-radius: calc($brd-r-l * 2);
+      width: 100%;
+      object-fit: cover;
+    }
+    &_modal {
+      & img {
+        max-height: 60vh;
+        border-radius: calc($brd-r-l * 2);
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  &__sm {
+    & img {
+      width: 100%;
+      cursor: pointer;
+    }
+    &_modal {
+      & img {
+        max-height: 30vh;
+        border-radius: calc($brd-r-l * 2);
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.info {
+  &__wrapper {
+    margin: 20px 0;
+  }
+  &__list {
+    margin: 20px 0;
+    color: $grey900;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
+
+.descr {
+  &__wrapper {
+    display: block;
+    grid-column: 1 / span 2;
+    font-weight: 600;
+  }
+}
+
+.icon {
+  &__wrapper {
+    top: 20px;
+    right: 20px;
+    position: absolute;
+    z-index: 100;
+    background: transparent;
+    border: none;
+    transition: $transition-m;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+  &_loop {
+    padding: 4px;
+    fill: $grey300;
+    stroke: $grey900;
+    background-color: $grey100;
+    z-index: 100;
+    border-radius: 100%;
+    &:hover {
+      transform: rotate(90deg);
+    }
+  }
+}

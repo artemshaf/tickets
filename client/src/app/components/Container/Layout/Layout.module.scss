@@ -1,22 +1,9 @@
 .wrapper {
   display: grid;
-  grid-template-areas: "leftbar main rightbar";
-  grid-template-columns: minmax(240px, 360px) minmax(860px, auto) minmax(
+  grid-template-columns: minmax(240px, 360px) minmax(1040px, auto) minmax(
       240px,
       360px
     );
-}
-
-.leftbar {
-  grid-area: leftbar;
-  max-width: 360px;
-}
-
-.main {
-  grid-area: main;
-}
-
-.rightbar {
-  grid-area: rightbar;
-  max-width: 360px;
+  flex-wrap: wrap;
+  min-height: 100vh;
 }

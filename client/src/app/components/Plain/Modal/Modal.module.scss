@@ -1,0 +1,54 @@
+@import "../../../styles/mixins.scss";
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  filter: blur(50px);
+  background: $grey400;
+  &:hover {
+  }
+}
+
+.child {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  top: 30%;
+  left: 30%;
+  transform: translate(-20%, -30%);
+  z-index: 2;
+  width: 70%;
+}
+
+.icon {
+  &__close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    border: none;
+    border-radius: 100%;
+    background: transparent;
+    cursor: pointer;
+    transform: rotate(45deg);
+
+    & svg,
+    & path {
+      fill: $grey900;
+      stroke: $grey900;
+    }
+  }
+}

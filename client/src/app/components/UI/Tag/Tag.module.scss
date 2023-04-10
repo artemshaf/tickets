@@ -1,2 +1,30 @@
+@import "../../../styles/variables.scss";
+
 .tag {
+  display: inline-block;
+  border-radius: $brd-r-l;
+  color: $grey100;
+  border: none;
+
+  &_s {
+    padding: 6px 10px;
+  }
+  &_m {
+    padding: 8px 12px;
+  }
+  &_l {
+    padding: 12px 16px;
+  }
+
+  &_accessible {
+    cursor: pointer;
+    background-color: $grey100;
+    color: $grey900;
+  }
+
+  &_finished {
+    color: $grey300;
+    background-color: $grey600;
+    cursor: not-allowed;
+  }
 }

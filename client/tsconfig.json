@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
+    "types": ["vite/client"],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
-    "skipLibCheck": true,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -13,10 +13,18 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "skipLibCheck": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    // "plugins": [
+    //   {
+    //     "name": "typescript-plugin-css-modules",
+    //     "options": {
+    //       "rendererOptions": {}
+    //     }
+    //   }
+    // ],
     "paths": {
       "@components": ["./app/components/index.tsx"],
       "@pages": ["./app/pages/index.tsx"],

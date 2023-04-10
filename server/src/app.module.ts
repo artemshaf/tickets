@@ -19,7 +19,8 @@ import { EventTariffModule } from './event-tariff/event-tariff.module';
 import { TokenModule } from './token/token.module';
 import { AccessTokenGuard } from './auth/guards/access-token.guard';
 import { APP_GUARD } from '@nestjs/core';
-import { RefreshTokenStrategy } from './auth/stratagies/refresh-token.stratagy';
+import { UploadModule } from './upload/upload.module';
+import { MulterModule } from '@nestjs/platform-express';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -47,6 +48,7 @@ import { RefreshTokenStrategy } from './auth/stratagies/refresh-token.stratagy';
     EventSectionModule,
     EventTariffModule,
     TokenModule,
+    UploadModule,
   ],
   controllers: [],
   providers: [

@@ -1,5 +1,3 @@
-import { DetailedHTMLProps, HTMLAttributes } from "react";
-
 import { ReactComponent as AddressBook } from "./icons/AddressBook.svg";
 import { ReactComponent as Logo } from "./icons/Logo.svg";
 import { ReactComponent as Poster } from "./icons/poster.svg";
@@ -48,4 +46,5 @@ export type IconName = keyof typeof importedIcons;
 
 export interface IIconInterface extends React.SVGProps<SVGSVGElement> {
   icon: IconName;
+  size?: "s" | "m" | "l";
 }

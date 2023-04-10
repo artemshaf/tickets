@@ -7,10 +7,12 @@ import { Event } from './models/event.model';
 export class EventService {
   constructor(@InjectModel(Event) private readonly eventRepo: typeof Event) {}
 
-  async createEvent(createEventInput: CreateEventInput) {
-    const event = await this.eventRepo.create(createEventInput);
-    return event;
-  }
+  // async createEvent({ image, ...rest }: CreateEventInput) {
+  //   const { createReadStream, filename } = await image;
+  //   console.log(await image);
+  //   const event = await this.eventRepo.create(rest);
+  //   return event;
+  // }
 
   async getEvent(id: number) {
     const event = await this.eventRepo.findByPk(id);

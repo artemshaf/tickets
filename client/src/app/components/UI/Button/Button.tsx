@@ -1,13 +1,11 @@
 import styles from "./Button.module.scss";
 import { IButtonInterface } from "./Button.interface";
+import cn from "classnames";
 
-export const Button = ({
-  className,
-  ...props
-}: IButtonInterface) => {
+export const Button = ({ className, children, ...props }: IButtonInterface) => {
   return (
-    <div className={styles.button} {...props}>
-      Button Component
-    </div>
+    <button className={cn(styles.button, className)} {...props}>
+      {children}
+    </button>
   );
 };
